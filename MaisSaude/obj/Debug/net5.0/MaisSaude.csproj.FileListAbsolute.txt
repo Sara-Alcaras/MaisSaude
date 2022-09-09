@@ -1,0 +1,7 @@
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.csproj.AssemblyReference.cache
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.AssemblyInfoInputs.cache
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.AssemblyInfo.cs
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.csproj.CoreCompileInputs.cache
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Sara\Desktop\Curso Edusyn\Entity Framework\Desafio\MaisSaude\MaisSaude\obj\Debug\net5.0\MaisSaude.MvcApplicationPartsAssemblyInfo.cache
