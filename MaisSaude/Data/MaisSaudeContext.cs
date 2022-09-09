@@ -18,7 +18,7 @@ namespace MaisSaude.Data
         {
         }
 
-        public virtual DbSet<Consulta> Consulta { get; set; }
+        public virtual DbSet<Consulta> Consultas { get; set; }
         public virtual DbSet<Especialidade> Especialidades { get; set; }
         public virtual DbSet<Medico> Medicos { get; set; }
         public virtual DbSet<Paciente> Pacientes { get; set; }
@@ -40,6 +40,8 @@ namespace MaisSaude.Data
 
             modelBuilder.Entity<Consulta>(entity =>
             {
+
+                entity.ToTable("Consulta");
                 entity.Property(e => e.DataHora).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdMedicoNavigation)
