@@ -33,12 +33,32 @@ namespace MaisSaude
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MaisSaude", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "MaisSaude",
+                    Version = "v1",
+                    Description = "API desenvolvida durante o programa Entry Point BRQ!",
+                    TermsOfService = new Uri("https://MaisSaude.com"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Sara Alcaras",
+                        Url = new Uri("https://github.com/Sara-Alcaras")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "EduSync",
+                        Url = new Uri("https://edusync.twygoead.com/dashboard_students")
+                    }
+                });
             });
 
             // Adicionando as injeções de dependência
             services.AddTransient<MaisSaudeContext, MaisSaudeContext>();
+            services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IConsultaRepository, ConsultaRepository>();
+            services.AddTransient<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddTransient<IMedicoRepository, MedicoRepository>();
+            services.AddTransient<IPacienteRepository, PacienteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
