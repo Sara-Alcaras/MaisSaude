@@ -1,3 +1,6 @@
+using MaisSaude.Data;
+using MaisSaude.Interfaces;
+using MaisSaude.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +35,10 @@ namespace MaisSaude
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MaisSaude", Version = "v1" });
             });
+
+            // Adicionando as injeções de dependência
+            services.AddTransient<MaisSaudeContext, MaisSaudeContext>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
