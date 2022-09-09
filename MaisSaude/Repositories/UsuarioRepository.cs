@@ -33,7 +33,15 @@ namespace MaisSaude.Repositories
 
         public Usuario Inserir(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            // Faz a comunicação com o banco
+            // Recebe o usuário como argumento e adiciona no banco
+            ctx.Usuarios.Add(usuario);
+
+            // Salva as alterações no banco
+            ctx.SaveChanges();
+
+            // Retorna o usuário
+            return usuario;
         }
 
         public ICollection<Usuario> ListarTodos()

@@ -33,7 +33,15 @@ namespace MaisSaude.Repositories
 
         public Consulta Inserir(Consulta consulta)
         {
-            throw new System.NotImplementedException();
+            // Faz a comunicação com o banco
+            // Recebe a consulta como argumento e adiciona no banco
+            ctx.Consultas.Add(consulta);
+
+            // Salva as alterações no banco
+            ctx.SaveChanges();
+
+            // Retorna a consulta
+            return consulta;
         }
 
         public ICollection<Consulta> ListarTodos()

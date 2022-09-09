@@ -33,7 +33,15 @@ namespace MaisSaude.Repositories
 
         public Especialidade Inserir(Especialidade especialidade)
         {
-            throw new System.NotImplementedException();
+            // Faz a comunicação com o banco
+            // Recebe a especialidade como argumento e adiciona no banco
+            ctx.Especialidades.Add(especialidade);
+
+            // Salva as alterações no banco
+            ctx.SaveChanges();
+
+            // Retorna a especialidade
+            return especialidade;
         }
 
         public ICollection<Especialidade> ListarTodos()

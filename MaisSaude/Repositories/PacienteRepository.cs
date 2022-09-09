@@ -33,7 +33,15 @@ namespace MaisSaude.Repositories
 
         public Paciente Inserir(Paciente paciente)
         {
-            throw new System.NotImplementedException();
+            // Faz a comunicação com o banco
+            // Recebe o paciente como argumento e adiciona no banco
+            ctx.Pacientes.Add(paciente);
+
+            // Salva as alterações no banco
+            ctx.SaveChanges();
+
+            // Retorna o paciente
+            return paciente;
         }
 
         public ICollection<Paciente> ListarTodos()
