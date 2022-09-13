@@ -2,6 +2,7 @@
 using MaisSaude.Interfaces;
 using MaisSaude.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MaisSaude.Repositories
 {
@@ -23,7 +24,8 @@ namespace MaisSaude.Repositories
 
         public Especialidade BuscarPorId(int id)
         {
-            throw new System.NotImplementedException();
+            // Retorna utilizando linq com a expressão lambda 
+            return ctx.Especialidades.Find(id);
         }
 
         public void Excluir(Especialidade especialidade)
@@ -46,7 +48,8 @@ namespace MaisSaude.Repositories
 
         public ICollection<Especialidade> ListarTodos()
         {
-            throw new System.NotImplementedException();
+            // Converte para Lista de especialidades utilizando o LINQ
+            return ctx.Especialidades.ToList();
         }
     }
 }

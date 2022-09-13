@@ -2,6 +2,7 @@
 using MaisSaude.Interfaces;
 using MaisSaude.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MaisSaude.Repositories
 {
@@ -23,7 +24,8 @@ namespace MaisSaude.Repositories
 
         public TipoUsuario BuscarPorId(int id)
         {
-            throw new System.NotImplementedException();
+            // Retorna utilizando linq com a expressão lambda 
+            return ctx.TipoUsuarios.Find(id);
         }
 
         public void Excluir(TipoUsuario tipoUsuario)
@@ -46,7 +48,8 @@ namespace MaisSaude.Repositories
 
         public ICollection<TipoUsuario> ListarTodos()
         {
-            throw new System.NotImplementedException();
+            // Converte para Lista de tipo de usuário utilizando o LINQ
+            return ctx.TipoUsuarios.ToList();
         }
     }
 }

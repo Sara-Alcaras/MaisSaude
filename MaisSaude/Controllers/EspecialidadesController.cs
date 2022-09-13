@@ -43,5 +43,65 @@ namespace MaisSaude.Controllers
                 });
             }
         }
+
+        /// <summary>
+        /// Lista todas as especialidades cadastradas na aplicação
+        /// </summary>
+        /// <returns>Lista de especialidades</returns>
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            try
+            {
+                // Cria a variável retorno para receber o método de listar
+                var retorno = repositorio.ListarTodos();
+                // Retorna a variável
+                return Ok(retorno);
+            }
+            catch (System.Exception ex)
+            {
+
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+        /// <summary>
+        /// Busca todas as especialidades cadastradas por id
+        /// </summary>
+        /// <returns>Lista de especialidades</returns>
+        [HttpGet("{id}")]
+        public IActionResult BuscarEspecialidadePorID(int id)
+        {
+            try
+            {
+                var retorno = repositorio.BuscarPorId(id);
+
+                // Se o id for nulo
+                if (retorno == null)
+                {
+                    // Retorna erro informando que não foi encontrado
+                    return NotFound(new
+                    {
+                        Message = "Especialidade não encontrada"
+                    });
+                }
+                // Retorna a especialidade por id
+                return Ok(retorno);
+
+            }
+            catch (System.Exception ex)
+            {
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

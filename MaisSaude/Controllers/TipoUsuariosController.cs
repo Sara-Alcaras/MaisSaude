@@ -43,5 +43,65 @@ namespace MaisSaude.Controllers
                 });
             }
         }
+
+        /// <summary>
+        /// Lista todos os tipos de usuários cadastrados na aplicação
+        /// </summary>
+        /// <returns>Lista de tipo de usuários</returns>
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            try
+            {
+                // Cria a variável retorno para receber o método de listar
+                var retorno = repositorio.ListarTodos();
+                // Retorna a variável
+                return Ok(retorno);
+            }
+            catch (System.Exception ex)
+            {
+
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+        /// <summary>
+        /// Busca todos os tipo de usuários cadastradas por id
+        /// </summary>
+        /// <returns>Lista de tipo de usuários</returns>
+        [HttpGet("{id}")]
+        public IActionResult BuscarTipoUsuarioPorID(int id)
+        {
+            try
+            {
+                var retorno = repositorio.BuscarPorId(id);
+
+                // Se o id for nulo
+                if (retorno == null)
+                {
+                    // Retorna erro informando que não foi encontrado
+                    return NotFound(new
+                    {
+                        Message = "Tipo de Usuário não encontrado"
+                    });
+                }
+                // Retorna o tipo de usuário por id
+                return Ok(retorno);
+
+            }
+            catch (System.Exception ex)
+            {
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }
