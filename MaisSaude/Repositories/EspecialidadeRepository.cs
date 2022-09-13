@@ -1,6 +1,8 @@
 ﻿using MaisSaude.Data;
 using MaisSaude.Interfaces;
 using MaisSaude.Models;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +21,20 @@ namespace MaisSaude.Repositories
         // Implementação dos métodos
         public void Alterar(Especialidade especialidade)
         {
-            throw new System.NotImplementedException();
+            // Verifica se existe modificação utilizando a biblioteca do entity
+            ctx.Entry(especialidade).State = EntityState.Modified;
+            // Salva as alterações
+            ctx.SaveChanges();
+        }
+
+        public void AlterarParcialmente(JsonPatchDocument patchEspecialidade, Especialidade especialidade)
+        {
+            // Pega apenas o que foi alterado
+            patchEspecialidade.ApplyTo(especialidade);
+            // Verifica se existe modificação utilizando a biblioteca do entity
+            ctx.Entry(especialidade).State = EntityState.Modified;
+            // Salva as alterações
+            ctx.SaveChanges();
         }
 
         public Especialidade BuscarPorId(int id)

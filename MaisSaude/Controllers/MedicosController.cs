@@ -1,6 +1,7 @@
 ﻿using MaisSaude.Interfaces;
 using MaisSaude.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaisSaude.Controllers
@@ -102,6 +103,81 @@ namespace MaisSaude.Controllers
                     Message = ex.Message,
                 });
             }
+        }
+        /// <summary>
+        /// Alterar os dados de um médico
+        /// </summary>
+        /// <param name="medico">Todas as informações do médico </param>
+        /// <param name="id">Id do médico</param>
+        [HttpPut("{id}")]
+        public IActionResult Alterar(int id, Medico medico)
+        {
+            try
+            {
+                // Verifica se os ids existem
+                if (id != medico.Id)
+                {
+                    // Retorna erro
+                    return BadRequest("Os ids são diferentes");
+                }
+
+                // Verifica se o id existe no banco
+                var retorno = repositorio.BuscarPorId(id);
+
+                // Se o id for nulo
+                if (retorno == null)
+                {
+                    // Retorna erro informando que não foi encontrado
+                    return NotFound(new
+                    {
+                        Message = "Consulta não encontrada"
+                    });
+                }
+                // Efetiva a alteração
+                repositorio.Alterar(medico);
+
+                // Retorna sucesso, não retorna o objeto
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+        /// <summary>
+        /// Altera os dados parcialmente
+        /// </summary>
+        /// <returns>Dados alterados</returns>
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchMedico)
+        {
+            // Verifica se o Patch está vazio
+            if (patchMedico == null)
+            {
+                // Retorna erro
+                return BadRequest();
+            }
+            // Busca o objeto
+            var medico = repositorio.BuscarPorId(id);
+            // Se o id for nulo
+            if (medico == null)
+            {
+                // Retorna erro informando que não foi encontrado
+                return NotFound(new
+                {
+                    Message = "Médico não encontrado"
+                });
+            }
+
+            // Pega o patch e o médico encontrado
+            repositorio.AlterarParcialmente(patchMedico, medico);
+            return Ok(medico);
         }
     }
 }

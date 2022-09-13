@@ -1,6 +1,7 @@
 ﻿using MaisSaude.Interfaces;
 using MaisSaude.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaisSaude.Controllers
@@ -102,6 +103,81 @@ namespace MaisSaude.Controllers
                     Message = ex.Message,
                 });
             }
+        }
+        /// <summary>
+        /// Alterar os dados de uma especialidade
+        /// </summary>
+        /// <param name="especialidade">Todas as informações da especialidade</param>
+        /// <param name="id">Id da especialidade</param>
+        [HttpPut("{id}")]
+        public IActionResult Alterar(int id, Especialidade especialidade)
+        {
+            try
+            {
+                // Verifica se os ids existem
+                if (id != especialidade.Id)
+                {
+                    // Retorna erro
+                    return BadRequest("Os ids são diferentes");
+                }
+
+                // Verifica se o id existe no banco
+                var retorno = repositorio.BuscarPorId(id);
+
+                // Se o id for nulo
+                if (retorno == null)
+                {
+                    // Retorna erro informando que não foi encontrado
+                    return NotFound(new
+                    {
+                        Message = "Consulta não encontrada"
+                    });
+                }
+                // Efetiva a alteração
+                repositorio.Alterar(especialidade);
+
+                // Retorna sucesso, não retorna o objeto
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+        /// <summary>
+        /// Altera os dados parcialmente
+        /// </summary>
+        /// <returns>Dados alterados</returns>
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchEspecialidade)
+        {
+            // Verifica se o Patch está vazio
+            if (patchEspecialidade == null)
+            {
+                // Retorna erro
+                return BadRequest();
+            }
+            // Busca o objeto
+            var especialidade = repositorio.BuscarPorId(id);
+            // Se o id for nulo
+            if (especialidade == null)
+            {
+                // Retorna erro informando que não foi encontrado
+                return NotFound(new
+                {
+                    Message = "Especialidade não encontrada"
+                });
+            }
+
+            // Pega o patch e a especialidade encontrada
+            repositorio.AlterarParcialmente(patchEspecialidade, especialidade);
+            return Ok(especialidade);
         }
     }
 }

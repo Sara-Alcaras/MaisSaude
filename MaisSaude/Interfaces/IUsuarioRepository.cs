@@ -1,4 +1,5 @@
 ﻿using MaisSaude.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 
 namespace MaisSaude.Interfaces
@@ -18,5 +19,6 @@ namespace MaisSaude.Interfaces
         void Alterar(Usuario usuario);
 
         void Excluir(Usuario usuario);
+        void AlterarParcialmente(JsonPatchDocument patchUsuario, Usuario usuario);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MaisSaude.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 
 namespace MaisSaude.Interfaces
@@ -18,5 +19,7 @@ namespace MaisSaude.Interfaces
         void Alterar(Especialidade especialidade);
 
         void Excluir(Especialidade especialidade);
+
+        void AlterarParcialmente(JsonPatchDocument patchEspecialidade, Especialidade especialidade);
     }
 }

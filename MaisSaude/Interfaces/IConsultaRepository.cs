@@ -1,4 +1,5 @@
 ﻿using MaisSaude.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 
 namespace MaisSaude.Interfaces
@@ -18,5 +19,7 @@ namespace MaisSaude.Interfaces
         void Alterar(Consulta consulta);
 
         void Excluir(Consulta consulta);
+
+        void AlterarParcialmente(JsonPatchDocument patchConsulta, Consulta consulta);
     }
 }
