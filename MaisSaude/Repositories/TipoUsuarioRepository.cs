@@ -45,7 +45,12 @@ namespace MaisSaude.Repositories
 
         public void Excluir(TipoUsuario tipoUsuario)
         {
-            throw new System.NotImplementedException();
+            // Pega o id do usuário
+            var tipoUsuarioConstraints = ctx.TipoUsuarios.Where(t => t.Id == tipoUsuario.Id).Include(u => u.Usuarios).First();
+            var tipoUsuarioConstraintss = ctx.TipoUsuarios.Where(u => u.Id == tipoUsuario.Id);
+
+            ctx.Remove(tipoUsuarioConstraints);
+            ctx.SaveChanges();
         }
 
         public TipoUsuario Inserir(TipoUsuario tipoUsuario)

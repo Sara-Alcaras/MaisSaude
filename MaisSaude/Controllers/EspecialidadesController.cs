@@ -179,5 +179,48 @@ namespace MaisSaude.Controllers
             repositorio.AlterarParcialmente(patchEspecialidade, especialidade);
             return Ok(especialidade);
         }
+
+        /// <summary>
+        /// Deleta todos dados de uma especialidade
+        /// </summary>
+        /// <param name="id">Id da especialidade</param>
+        /// <returns>Mensagem de exclusão</returns>
+        /// 
+        [HttpDelete("{id}")]
+        public IActionResult Excluir(int id)
+        {
+            try
+            {
+                // Busca por id
+                var busca = repositorio.BuscarPorId(id);
+                // Se busca nulo
+                if (busca == null)
+                {
+                    // Retorna erro informando que não foi encontrado
+                    return NotFound(new
+                    {
+                        Message = "Especialidade não encontrada"
+                    });
+                }
+                // Exclui por busca de id
+                repositorio.Excluir(busca);
+
+                return Ok(new
+                {
+                    msg = "Especialidade exlcuída com sucesso!"
+                });
+
+
+            }
+            catch (System.Exception ex)
+            {
+                // Se não for inserida da erro
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

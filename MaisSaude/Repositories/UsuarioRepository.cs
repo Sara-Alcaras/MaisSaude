@@ -3,6 +3,7 @@ using MaisSaude.Interfaces;
 using MaisSaude.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,7 +46,12 @@ namespace MaisSaude.Repositories
 
         public void Excluir(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            // Utiliza o linq para pegar o id do usuário e do paciente
+            var usuarioConstraints = ctx.Usuarios.Where(u => u.Id == usuario.Id).Include(p => p.Pacientes).First();
+            var usuarioConstraintss = ctx.Usuarios.Where(u => u.Id == usuario.Id);
+
+            ctx.Remove(usuarioConstraints);
+            ctx.SaveChanges();
         }
 
         public Usuario Inserir(Usuario usuario)

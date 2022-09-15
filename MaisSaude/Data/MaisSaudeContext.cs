@@ -53,7 +53,8 @@ namespace MaisSaude.Data
                 entity.HasOne(d => d.IdPacienteNavigation)
                     .WithMany(p => p.Consulta)
                     .HasForeignKey(d => d.IdPaciente)
-                    .HasConstraintName("FK__Consulta__IdPaci__48CFD27E");
+                    .HasConstraintName("FK__Consulta__IdPaci__48CFD27E")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Especialidade>(entity =>
@@ -74,12 +75,14 @@ namespace MaisSaude.Data
                 entity.HasOne(d => d.IdEspecialidadeNavigation)
                     .WithMany(p => p.Medicos)
                     .HasForeignKey(d => d.IdEspecialidade)
-                    .HasConstraintName("FK__Medico__IdEspeci__3D5E1FD2");
+                    .HasConstraintName("FK__Medico__IdEspeci__3D5E1FD2")
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Medicos)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__Medico__IdUsuari__3E52440B");
+                    .HasConstraintName("FK__Medico__IdUsuari__3E52440B")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Paciente>(entity =>
@@ -93,7 +96,8 @@ namespace MaisSaude.Data
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Pacientes)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__Paciente__IdUsua__44FF419A");
+                    .HasConstraintName("FK__Paciente__IdUsua__44FF419A")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<TipoUsuario>(entity =>
@@ -116,7 +120,8 @@ namespace MaisSaude.Data
                 entity.HasOne(d => d.IdTipoUsuarioNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdTipoUsuario)
-                    .HasConstraintName("FK__Usuario__IdTipoU__38996AB5");
+                    .HasConstraintName("FK__Usuario__IdTipoU__38996AB5")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             OnModelCreatingPartial(modelBuilder);

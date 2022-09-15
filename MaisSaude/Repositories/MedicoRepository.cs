@@ -45,7 +45,12 @@ namespace MaisSaude.Repositories
 
         public void Excluir(Medico medico)
         {
-            throw new System.NotImplementedException();
+            // Utiliza o linq para pegar o id
+            var medicoConstraints = ctx.Medicos.Where(m => m.Id == medico.Id).Include(c => c.Consulta).First();
+            var medicoConstraintsConstraintss = ctx.Medicos.Where(m => m.Id == medico.Id);
+
+            ctx.Remove(medicoConstraints);
+            ctx.SaveChanges();
         }
 
         public Medico Inserir(Medico medico)

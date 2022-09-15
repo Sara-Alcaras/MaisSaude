@@ -45,7 +45,8 @@ namespace MaisSaude.Repositories
 
         public void Excluir(Consulta consulta)
         {
-            throw new System.NotImplementedException();
+            ctx.Consultas.Remove(consulta);
+            ctx.SaveChanges();
         }
 
         public Consulta Inserir(Consulta consulta)

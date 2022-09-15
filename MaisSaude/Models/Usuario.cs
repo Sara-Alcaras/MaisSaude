@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -19,8 +20,11 @@ namespace MaisSaude.Models
         public string Senha { get; set; }
         public int? IdTipoUsuario { get; set; }
 
+        [JsonIgnore]
         public virtual TipoUsuario IdTipoUsuarioNavigation { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Medico> Medicos { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Paciente> Pacientes { get; set; }
     }
 }

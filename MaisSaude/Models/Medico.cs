@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -17,8 +18,12 @@ namespace MaisSaude.Models
         public int? IdEspecialidade { get; set; }
         public int? IdUsuario { get; set; }
 
+        [JsonIgnore]
         public virtual Especialidade IdEspecialidadeNavigation { get; set; }
+        [JsonIgnore]
         public virtual Usuario IdUsuarioNavigation { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Consulta> Consulta { get; set; }
     }
 }
