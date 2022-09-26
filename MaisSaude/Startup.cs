@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,26 @@ namespace MaisSaude
                     }
                 });
             });
+
+            // Config JWT
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+                .AddJwtBearer("JwtBearer",options => 
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("maisSaude-chave-autenticacao")),
+                        ClockSkew = TimeSpan.FromMinutes(30),
+                        ValidIssuer = "maisSaude.webAPI",
+                        ValidAudience = "maisSaude.webAPI"
+                    };
+                });
 
             // Adicionando as injeções de dependência
             services.AddTransient<MaisSaudeContext, MaisSaudeContext>();
