@@ -6,6 +6,8 @@ Criar uma API para o ramo da saúde.
 
 - EntityFramework
 - Database First
+- Autenticação com JWT
+- Teste Unitário
 
 # 👩🏻‍💻Diagrama utilizado:
 
