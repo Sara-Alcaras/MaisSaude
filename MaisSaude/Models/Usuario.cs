@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace MaisSaude.Models
 {
-    public abstract class Usuario
+    public partial class Usuario
     {
         public Usuario()
         {

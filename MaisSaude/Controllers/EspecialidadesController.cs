@@ -1,5 +1,6 @@
 ﻿using MaisSaude.Interfaces;
 using MaisSaude.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -184,8 +185,7 @@ namespace MaisSaude.Controllers
         /// Deleta todos dados de uma especialidade
         /// </summary>
         /// <param name="id">Id da especialidade</param>
-        /// <returns>Mensagem de exclusão</returns>
-        /// 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {

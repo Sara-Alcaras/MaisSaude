@@ -1,8 +1,10 @@
 ﻿using MaisSaude.Interfaces;
 using MaisSaude.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace MaisSaude.Controllers
 {
@@ -29,8 +31,12 @@ namespace MaisSaude.Controllers
         {
             try
             {
+                // Pega a senha e transforma em hash
+                usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
+
                 Usuario retorno = repositorio.Inserir(usuario);
 
+                
                 // Retorna o usuario que foi inserido
                 return Ok(retorno);
             }
@@ -120,6 +126,9 @@ namespace MaisSaude.Controllers
                     return BadRequest("Os ids são diferentes");
                 }
 
+                // Pega a senha e transforma em hash
+                usuario.Senha = BCrypt.Net.BCrypt.HashString(usuario.Senha);
+
                 // Verifica se o id existe no banco
                 var retorno = repositorio.BuscarPorId(id);
 
@@ -162,6 +171,7 @@ namespace MaisSaude.Controllers
                 // Retorna erro
                 return BadRequest();
             }
+
             // Busca o objeto
             var usuario = repositorio.BuscarPorId(id);
             // Se o id for nulo
@@ -183,7 +193,8 @@ namespace MaisSaude.Controllers
         /// </summary>
         /// <param name="id">Id do usuário</param>
         /// <returns>Mensagem de exclusão</returns>
-        /// 
+
+        [Authorize(Roles = "Paciente")]
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {

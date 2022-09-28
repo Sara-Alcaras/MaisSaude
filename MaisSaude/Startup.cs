@@ -80,6 +80,7 @@ namespace MaisSaude
             services.AddTransient<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddTransient<IMedicoRepository, MedicoRepository>();
             services.AddTransient<IPacienteRepository, PacienteRepository>();
+            services.AddTransient<ILoginRepository, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +94,8 @@ namespace MaisSaude
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
